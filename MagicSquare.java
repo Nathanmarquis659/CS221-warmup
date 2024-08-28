@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class MagicSquare implements MagicSquareInterface {
+public class MagicSquare implements MagicSquareInterface{
     private boolean isMagic;
     private int[][] magicSquareArray;
     
@@ -10,7 +10,7 @@ public class MagicSquare implements MagicSquareInterface {
     }
 
     // -create
-    public MagicSquare(String filename, int dimension) {
+    public MagicSquare(String filename, int dimension) throws Exception{
         int squareSize = dimension;
         this.isMagic = true;
         this.magicSquareArray = new int[squareSize][squareSize];
@@ -42,26 +42,19 @@ public class MagicSquare implements MagicSquareInterface {
         //REMOVE
         System.out.println(Arrays.deepToString(magicSquareArray));
 
-        try {
+       
             File file = new File(filename);
             PrintWriter outFile = new PrintWriter(new FileWriter(file));
 
             //Figure out what to do here
             outFile.println("The matrix:");
             
-
-
             outFile.close();
-        }
-
-        catch (IOException e) {
-            System.out.println("IO Exception when trying to write to file");
-        };
-
+        
     }
 
     // -check
-    public MagicSquare(String filename) throws FileNotFoundException{
+    public MagicSquare(String filename) throws FileNotFoundException, IOException {
         this.readMatrix(filename);
 
         //REMOVE
@@ -84,8 +77,8 @@ public class MagicSquare implements MagicSquareInterface {
         return false;
     }
 
-    private int[][] readMatrix(String filename) throws FileNotFoundException {
-        try {
+    private int[][] readMatrix(String filename) throws FileNotFoundException, IOException {
+        
             File file = new File(filename);
             Scanner scnr = new Scanner(file);
             int size = scnr.nextInt();
@@ -97,19 +90,15 @@ public class MagicSquare implements MagicSquareInterface {
                 }
             }
             scnr.close();
-        }
-        catch (IOException e) {
-            System.out.println("IOException when trying to read from file");
-        };
+        
+        
         return this.magicSquareArray;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, Exception, FileNotFoundException{
+
+        //REMOVE
         MagicSquare create = new MagicSquare("test", 3);
-        try {
-            MagicSquare check = new MagicSquare("valid4x4");
-        } catch (FileNotFoundException e) {
-            System.out.println("File Not Found Exception when trying to read from file");
-        }
+        MagicSquare check = new MagicSquare("valid4x4");
     } 
 }
