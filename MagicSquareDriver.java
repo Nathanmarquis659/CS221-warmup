@@ -9,35 +9,24 @@ public class MagicSquareDriver {
         String filename = args[1];
         int dimension;
         MagicSquare squareObj;
+        String usageMessage = "java MagicSquareDriver <-check | -create> <filename> <    |odd-size>";
 
         if (type.equals("-create")) {
             
             dimension = Integer.parseInt(args[2]);
             if ((dimension % 2) == 1) {
                 squareObj = new MagicSquare(filename, dimension);
+                System.out.println(squareObj.toString());
             } else {
-                System.out.println("Use an odd integer for the dimension");
+                System.out.println(usageMessage);
             }
             
         } else if (type.equals("-check")) {
                 squareObj = new MagicSquare(filename);
+                System.out.println(squareObj.toString());
         } else {
-            System.out.println("java MagicSquareDriver <-check | -create> <filename> <    |odd-size>");
+            System.out.println(usageMessage);
         }
-
-
-        //Check for -create or -check
-        
-        /* If -create
-         *      check that # is odd
-         *          if not odd, tell user
-         *      create MagicSquare(#, filename)
-         *      call method that outputs array to console
-         */
-
-         /* If -check
-          *     
-          */
         
     }
 }

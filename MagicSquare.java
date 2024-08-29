@@ -4,15 +4,11 @@ import java.util.*;
 public class MagicSquare implements MagicSquareInterface{
     private boolean isMagic;
     private int[][] magicSquareArray;
-    
-    public MagicSquare() {
-        System.out.println("No args contructor");
-    }
 
     // -create
-    public MagicSquare(String filename, int dimension) throws Exception{
+    public MagicSquare(String filename, int dimension) throws IOException{
         int squareSize = dimension;
-        this.isMagic = true;
+        this.isMagic = true; //True because created as so
         this.magicSquareArray = new int[squareSize][squareSize];
         int row = squareSize - 1;
         int col = squareSize / 2;
@@ -40,65 +36,149 @@ public class MagicSquare implements MagicSquareInterface{
         }
 
         //REMOVE
-        System.out.println(Arrays.deepToString(magicSquareArray));
+        //System.out.println(Arrays.deepToString(magicSquareArray));
 
-       
-            File file = new File(filename);
-            PrintWriter outFile = new PrintWriter(new FileWriter(file));
-
-            //Figure out what to do here
-            outFile.println("The matrix:");
-            
-            outFile.close();
-        
+        this.writeMatrix(this.magicSquareArray, filename);
     }
 
     // -check
-    public MagicSquare(String filename) throws FileNotFoundException, IOException {
+    public MagicSquare(String filename) throws FileNotFoundException {
         this.readMatrix(filename);
+        this.isMagic = this.isMagicSquare(filename);
+
 
         //REMOVE
-        System.out.print(Arrays.deepToString(this.magicSquareArray));
+        //System.out.print(Arrays.deepToString(this.magicSquareArray));
         
     }
 
     @Override
-    public int[][] getMatrix() {
-        if (this.isMagicSquare()) {
-
-        }
-        String matrix = new String("The matrix:");
-        return null;
+    public int[][] getMatrix(String filename, int dimension) throws FileNotFoundException{
+        return this.readMatrix(filename);
     }
 
     @Override
-    public boolean isMagicSquare() {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    public boolean isMagicSquare(String filename) throws FileNotFoundException{
+        int[][] numMatrix = this.readMatrix(filename);
+        int dimension = numMatrix[0].length;
+        final int magicNumber = (dimension * ((dimension * dimension) + 1)) / 2;
+        int[] continuityCheck = new int[dimension * dimension];
+        int verticalSum = magicNumber;
+        int horizontalSum = magicNumber;
+        int rhDiagonalSum = 0;
+        int lhDiagonalSum = 0;
 
-    private int[][] readMatrix(String filename) throws FileNotFoundException, IOException {
         
-            File file = new File(filename);
-            Scanner scnr = new Scanner(file);
-            int size = scnr.nextInt();
-            this.magicSquareArray = new int[size][size];
-
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    this.magicSquareArray[i][j] = scnr.nextInt();
-                }
+        for (int i = 0; i < dimension; i++) {
+            if (horizontalSum != magicNumber) {
+                return false;
+            } else if (verticalSum != magicNumber) {
+                return false;
             }
-            scnr.close();
+            
+            
+            horizontalSum = 0;
+            verticalSum = 0;
+            
+            for (int j = 0; j < dimension; j++) {
+                int quantity = numMatrix[i][j];
+                
+                horizontalSum += quantity; //normal quantity
+                
+                verticalSum += numMatrix[j][i]; //inverse quantity
+                
+                continuityCheck[quantity - 1] = quantity;
+                
+            }
+            
+            rhDiagonalSum += numMatrix[i][i];
+            
+            
+            int xCord = i;
+            int yCord = (dimension - 1) - i;
+            
+            
+            //REMOVE
+            //System.out.println(xCord + " " + yCord);
+
+            lhDiagonalSum += numMatrix[xCord][yCord];
+        }
+        if (rhDiagonalSum != magicNumber) {
+            return false;
+        } else if (lhDiagonalSum != magicNumber) {
+            return false;
+        } 
+
+        for (int i: continuityCheck) {
+            if (i < 1) {
+                return false;
+            }
+        }
+        // REMOVE
+        //System.out.println("A magic square!");
+
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        int dimension = this.magicSquareArray[0].length;
+        String notString = "not ";
+        String matrixString = "The matrix:";
+        if (this.isMagic == true) {
+            notString = "";
+        }
+
+        for (int i = 0; i < dimension; i++) {
+            matrixString += "\n  ";
+            for (int j = 0; j < dimension; j++) {
+                matrixString += String.valueOf(this.magicSquareArray[i][j]);
+                matrixString += " ";
+            }
+        }
+
+        matrixString += "\nis " + notString + "a magic square.";
+    
+        return matrixString;
+    }
+
+    private void writeMatrix(int[][] matrix, String filename) throws IOException {
+        int dimension = this.magicSquareArray[0].length;
+        String matrixString = "";
+
+        File file = new File(filename);
+        PrintWriter outFile = new PrintWriter(new FileWriter(file));
+
+        for (int i = 0; i < dimension; i++) {
+            matrixString += "\n";
+            for (int j = 0; j < dimension; j++) {
+                matrixString += String.valueOf(this.magicSquareArray[i][j]);
+                matrixString += " ";
+            }
+        }
         
+        outFile.print(dimension);
+        outFile.print(matrixString);
+        outFile.close();
+
+    }
+
+    private int[][] readMatrix(String filename) throws FileNotFoundException {
+        File file = new File(filename);
+        Scanner scnr = new Scanner(file);
+        int size = scnr.nextInt();
+        this.magicSquareArray = new int[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                this.magicSquareArray[i][j] = scnr.nextInt();
+            }
+        }
+        scnr.close();
         
         return this.magicSquareArray;
     }
 
     public static void main(String[] args) throws IOException, Exception, FileNotFoundException{
-
-        //REMOVE
-        MagicSquare create = new MagicSquare("test", 3);
-        MagicSquare check = new MagicSquare("valid4x4");
     } 
 }
