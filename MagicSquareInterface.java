@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 
 /**
  * Methods required for a class that validates
@@ -46,7 +45,7 @@ public interface MagicSquareInterface {
 	 * 
 	 * @return true if matrix is a magic square, else false
 	 */
-	public boolean isMagicSquare(String filename) throws FileNotFoundException;
+	public boolean isMagicSquare();
 	
 	/**
 	 * Return a copy of the matrix (whether read from file 
@@ -55,7 +54,7 @@ public interface MagicSquareInterface {
 	 * 
 	 * @return 2D array of ints that may or may not be a valid magic square
 	 */
-	public int[][] getMatrix(String filename, int n) throws FileNotFoundException;
+	public int[][] getMatrix();
 	
 	/**
 	 * Return a string formatted as in these examples:

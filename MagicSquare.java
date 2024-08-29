@@ -5,6 +5,18 @@ public class MagicSquare implements MagicSquareInterface{
     private boolean isMagic;
     private int[][] magicSquareArray;
 
+    
+    // -check
+    public MagicSquare(String filename) throws FileNotFoundException {
+        this.readMatrix(filename);
+        this.isMagic = this.isMagicSquare();
+        
+        
+        //REMOVE
+        //System.out.print(Arrays.deepToString(this.magicSquareArray));
+        
+    }
+
     // -create
     public MagicSquare(String filename, int dimension) throws IOException{
         int squareSize = dimension;
@@ -41,25 +53,21 @@ public class MagicSquare implements MagicSquareInterface{
         this.writeMatrix(this.magicSquareArray, filename);
     }
 
-    // -check
-    public MagicSquare(String filename) throws FileNotFoundException {
-        this.readMatrix(filename);
-        this.isMagic = this.isMagicSquare(filename);
-
-
-        //REMOVE
-        //System.out.print(Arrays.deepToString(this.magicSquareArray));
-        
+    @Override
+    public int[][] getMatrix(){
+        int dimension = this.magicSquareArray[0].length;
+        int[][] matrixCopy = new int[dimension][dimension];
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrixCopy[i][j] = this.magicSquareArray[i][j];
+            }
+        }
+        return matrixCopy;
     }
 
     @Override
-    public int[][] getMatrix(String filename, int dimension) throws FileNotFoundException{
-        return this.readMatrix(filename);
-    }
-
-    @Override
-    public boolean isMagicSquare(String filename) throws FileNotFoundException{
-        int[][] numMatrix = this.readMatrix(filename);
+    public boolean isMagicSquare(){
+        int[][] numMatrix = this.magicSquareArray;
         int dimension = numMatrix[0].length;
         final int magicNumber = (dimension * ((dimension * dimension) + 1)) / 2;
         int[] continuityCheck = new int[dimension * dimension];
