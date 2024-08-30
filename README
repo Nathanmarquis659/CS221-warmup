@@ -1,71 +1,65 @@
 ****************
 * Magic Squares
 * CS221
-* 8/21/2024
-* Nathan Marquis
+* 8/29/2024
+* Nathan Marquis and Mason Vail
 **************** 
 
 OVERVIEW:
 
- Magic Squares evaluates an n-sided square matrix to check if it is a magic square (where 
- all vertical/horizontal/diagonal sums of n digits add up to a magic number). It also can create a magic square of n-sides. 
+ Magic Squares determines if a provided file contains a valid magic square, or alternatively can create one with a provided odd-numbered dimension and write it to a file.
+ A magic square is valid when all vertical/horizontal/diagonal sets of numbers each 
+ add up to (n * (n^2 + 1) / 2) where n is the side length of the matrix.
 
 INCLUDED FILES:
 
- List the files required for the project with a brief
- explanation of why each is included.
-
- e.g.
- * MagicSquare.java - source file
- * MagicSquareDriver.java - source file
- * MagicSquareInterface.java - source file
- * MagicSquaresTest.java - source file
+ * MagicSquare.java - source file - constructors and methods for MagicSquare objects
+ * MagicSquareDriver.java - source file - acts as input validation and calls for MagicSquare objects
+ * MagicSquareInterface.java - source file - required methods for MagicSquare.java
+ * MagicSquaresTest.java - source file - testing suite for proper design
  * README - this file
 
 
 COMPILING AND RUNNING:
 
- Give the command for compiling the program, the command
- for running the program, and any usage instructions the
- user needs.
- 
- These are command-line instructions for a system like onyx.
- They have nothing to do with Eclipse or any other IDE. They
- must be specific - assume the user has Java installed, but
- has no idea how to compile or run a Java program from the
- command-line.
- 
- e.g.
  From the directory containing all source files, compile the
- driver class (and all dependencies) with the command:
- $ javac Class1.java
+ test class (and all dependencies) with the command:
+ $ javac MagicSquaresTest.java
 
- Run the compiled class file with the command:
- $ java Class1
+ Run the compiled  test class file with the command:
+ $ java MagicSquaresTest
 
  Console output will give the results after the program finishes.
 
 
 PROGRAM DESIGN AND IMPORTANT CONCEPTS:
 
- This is the sort of information someone who really wants to
- understand your program - possibly to make future enhancements -
- would want to know.
+ The class MagicSquare implements MagicSquareInterface defining methods 
+ that 1) Check if a provided file contains a valid magic square, 2) Retrieve
+ a matrix copy that will not effect the original, 3) Returning a properly 
+ formatted string of the MagicSquare object array
 
- Explain the main concepts and organization of your program so that
- the reader can understand how your program works. This is not a repeat
- of javadoc comments or an exhaustive listing of all methods, but an
- explanation of the critical algorithms and object interactions that make
- up the program.
+ MagicSquare objects are made up of a 2d magicSquareArray and a boolean 
+ of whether or not said array is a valid magic square. The array can be populated
+ from a provided file using the `readMatrix()` utility method or if created from 
+ scratch would be fed a filename and dimension. For the latter case the `writeMatrix()` 
+ utility method will take the 2d array and write it to a file.
 
- Explain the main responsibilities of the classes and interfaces that make
- up the program. Explain how the classes work together to achieve the program
- goals. If there are critical algorithms that a user should understand, 
- explain them as well.
+ The MagicSquare class houses the constructors and methods for MagicSquare 
+ objects, along with the interface methods as required to retrieve, evaluate, and 
+ properly format said objects. 
  
- If you were responsible for designing the program's classes and choosing
- how they work together, why did you design the program this way? What, if 
- anything, could be improved? 
+ The MagicSquareDriver acts as input validation to ensure that only input 
+ formatted as follows is used:
+ `"java MagicSquareDriver <-check | -create> <filename> <    |odd-size>"`
+ After validation, it goes on to call the proper MagicSquare constructor, 
+ whether -check or -create, to initialize a MagicSquare object. It then 
+ calls `toString()` for either case and prints out a message to the user 
+ showing them their matrix and if it is a magic square. 
+ 
+ Finally, the MagicSquaresTest class will go through all test criteria to 
+ verify that the program runs as described and follows rules such as encapsulation. 
+
 
 TESTING:
 
@@ -84,21 +78,3 @@ DISCUSSION:
  
  What parts of the project did you find challenging? Is there anything
  that finally "clicked" for you in the process of working on this project?
- 
- 
-EXTRA CREDIT:
-
- If the project had opportunities for extra credit that you attempted,
- be sure to call it out so the grader does not overlook it.
-
-
-----------------------------------------------------------------------------
-
-All content in a README file is expected to be written in clear English with
-proper grammar, spelling, and punctuation. If you are not a strong writer,
-be sure to get someone else to help you with proofreading. Consider all project
-documentation to be professional writing for your boss and/or potential
-customers.
-
-README_overview.txt
-Displaying README_overview.txt.
