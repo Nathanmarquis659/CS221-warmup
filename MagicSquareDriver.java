@@ -1,6 +1,11 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/** 
+ * 
+ * @author Nathan Marquis
+ */
+
 public class MagicSquareDriver {
     public static void main(String[] args) throws IOException, Exception, FileNotFoundException{
         String type = args[0];

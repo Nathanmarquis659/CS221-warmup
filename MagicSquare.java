@@ -1,23 +1,36 @@
 import java.io.*;
 import java.util.*;
 
+/** 
+ * Makes MagicSquare objects that can create or check for valid magic squares.
+ * 
+ * @author Nathan Marquis and Mason Vail
+ */
+
 public class MagicSquare implements MagicSquareInterface{
     private boolean isMagic;
     private int[][] magicSquareArray;
 
-    
-    // -check
+    /**
+     * First constructor only takes a filename to read from, creating an array and checking if valid magic square
+     * 
+     * @param filename takes a filename to read from and create a magicSquareArray
+     * @throws FileNotFoundException 
+     * 
+     */
     public MagicSquare(String filename) throws FileNotFoundException {
         this.readMatrix(filename);
-        this.isMagic = this.isMagicSquare();
-        
-        
-        //REMOVE
-        //System.out.print(Arrays.deepToString(this.magicSquareArray));
-        
+        this.isMagic = this.isMagicSquare();  
     }
 
-    // -create
+    /**
+     * Takes in a chosen filename to create with a magicSquareArray transferred to a matrix format, with dimension given on the 
+     * first line
+     * 
+     * @param filename name of file to write (or write-ver) magicSquareArray to
+     * @param dimension the side dimension to create a new matrix
+     * @throws IOException
+     */
     public MagicSquare(String filename, int dimension) throws IOException{
         int squareSize = dimension;
         this.isMagic = true; //True because created as so
@@ -46,9 +59,6 @@ public class MagicSquare implements MagicSquareInterface{
                 row--;
             }
         }
-
-        //REMOVE
-        //System.out.println(Arrays.deepToString(magicSquareArray));
 
         this.writeMatrix(this.magicSquareArray, filename);
     }
@@ -104,10 +114,6 @@ public class MagicSquare implements MagicSquareInterface{
             
             int xCord = i;
             int yCord = (dimension - 1) - i;
-            
-            
-            //REMOVE
-            //System.out.println(xCord + " " + yCord);
 
             lhDiagonalSum += numMatrix[xCord][yCord];
         }
@@ -122,9 +128,6 @@ public class MagicSquare implements MagicSquareInterface{
                 return false;
             }
         }
-        // REMOVE
-        //System.out.println("A magic square!");
-
         return true;
     }
 
@@ -150,6 +153,14 @@ public class MagicSquare implements MagicSquareInterface{
         return matrixString;
     }
 
+    /**
+     * Creates a file and writes the contents of the instance magicSquareArray to it as a matrix, formatted with first line 
+     * being the dimension of said matrix
+     * 
+     * @param matrix
+     * @param filename
+     * @throws IOException
+     */
     private void writeMatrix(int[][] matrix, String filename) throws IOException {
         int dimension = this.magicSquareArray[0].length;
         String matrixString = "";
@@ -171,6 +182,13 @@ public class MagicSquare implements MagicSquareInterface{
 
     }
 
+    /**
+     * Parses through a given file to write its contents to a instance of magicSquareArray, returns said array
+     * 
+     * @param filename is a String used to open a file to read
+     * @return 2d int array for MagicSquare obj read from a file
+     * @throws FileNotFoundException
+     */
     private int[][] readMatrix(String filename) throws FileNotFoundException {
         File file = new File(filename);
         Scanner scnr = new Scanner(file);
@@ -187,6 +205,6 @@ public class MagicSquare implements MagicSquareInterface{
         return this.magicSquareArray;
     }
 
-    public static void main(String[] args) throws IOException, Exception, FileNotFoundException{
+    public static void main(String[] args) {
     } 
 }
