@@ -63,18 +63,26 @@ PROGRAM DESIGN AND IMPORTANT CONCEPTS:
 
 TESTING:
 
- How did you test your program to be sure it works and meets all of the
- requirements? What was the testing strategy? What kinds of tests were run?
- Can your program handle bad input? Is your program  idiot-proof? How do you 
- know? What are the known issues / bugs remaining in your program?
+ Testing was provided by a provided suite that looks for proper code execution
+ and principles followed such as encapsulation. Input validation is done in 
+ the MagicSquareDriver class by checking for the proper command of -create or
+ -check. It also checks that dimensions given are odd and positive. Bad input 
+ is displayed to the user with the standard usage message so that they know 
+ how to properly format their input to the program. Although advised against
+ catching errors, this program could be further improved with tailored 
+ messages for the most common faulty inputs rather than the generic
+ usage message.
 
 
 DISCUSSION:
  
- Discuss the issues you encountered during programming (development)
- and testing. What problems did you have? What did you have to research
- and learn on your own? What kinds of errors did you get? How did you 
- fix them?
- 
- What parts of the project did you find challenging? Is there anything
- that finally "clicked" for you in the process of working on this project?
+ This project was only a warmup, but really humbled me into going back to the
+ fundamentals. I spent more time than I would like to admit looking up the most
+ basic building blocks of coding in Java and how to do simple things like using 
+ interfaces properly. I had to look up how to use tools like PrintWriter and
+ FileWriter again to make sure that the file output was correct. I also faced
+ some issues with inattentive coding causing small errors to pile up and take  
+ significant time to figure out what was going wrong. Finally, algorithmically
+ I made some silly mistakes that I could not figure out for a long time. Overall
+ I learned a ton from this project and feel much more 'limber' in my coding 
+ abilities to advance further in this class. A good wake up call!
