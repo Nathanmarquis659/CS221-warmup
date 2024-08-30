@@ -2,6 +2,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /** 
+ * Driver to validate input and to create MagicSquare objects from the command line
+ * Can call to check or create magic squares 
  * 
  * @author Nathan Marquis
  */
